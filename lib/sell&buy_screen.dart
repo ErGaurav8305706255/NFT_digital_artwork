@@ -11,7 +11,27 @@ class SellBuyScreen extends StatefulWidget {
   State<SellBuyScreen> createState() => _SellBuyScreenState();
 }
 
-class _SellBuyScreenState extends State<SellBuyScreen> {
+class _SellBuyScreenState extends State<SellBuyScreen> with WidgetsBindingObserver {
+
+  late AppLifecycleState _appLifecycleState;
+
+  @override
+  void initState(){
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+  }
+  @override
+  void dispose(){
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    setState(() {
+      _appLifecycleState = state;
+      print("BottomNavigatorScreen State: $_appLifecycleState");
+    });
+  }
 
   int currentIndex = 0;
   final List item=['assets/antic1.jpg', 'assets/antic2.jpg', 'assets/antic3.jpg', 'assets/antic4.jpg', 'assets/antic5.jpg', 'assets/antic6.jpg',];
